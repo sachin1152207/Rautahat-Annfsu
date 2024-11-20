@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post View</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      background-color: #f0f2f5;
+    }
+
+    .post-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-header {
+      padding: 15px;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .post-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .post-date {
+      color: gray;
+      font-size: 0.9rem;
+    }
+
+    .post-body {
+      position: relative;
+    }
+
+    .post-body p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 6em; /* Adjust for the number of visible lines */
+      display: -webkit-box;
+      -webkit-line-clamp: 6; /* Limit to 6 lines */
+      -webkit-box-orient: vertical;
+    }
+
+    .post-body img {
+      width: 100%;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .view-all-btn {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: none;
+      text-align: center;
+      width: 100%;
+      padding: 10px 0;
+      cursor: pointer;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      font-size: 0.9rem;
+      color: #007bff;
+      display: none;
+    }
+
+    .post-actions {
+      padding: 10px 15px;
+      border-top: 1px solid #e9ecef;
+    }
+
+    .post-actions .btn {
+      font-size: 14px;
+      color: gray;
+    }
+
+    .post-actions .btn:hover {
+      color: #495057;
+      background: #f8f9fa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container my-4">
+    <div class="post-card mx-auto" style="max-width: 600px;">
+      <!-- Post Header -->
+      <div class="post-header">
+        <h2 class="post-title">ANNFSU Welcoming New Members</h2>
+        <p class="post-date">Posted on: November 14, 2024, 18:50</p>
+      </div>
+  
+      <!-- Post Content -->
+      <div class="post-body">
+        <p class="px-3" id="post-content">
+          ANNFSU welcomes new members to our Rautahat District Committee! Together, we aim to empower students and promote academic excellence. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        </p>
+        <img src="https://picsum.photos/600/300" alt="Post Image">
+        <button class="view-all-btn" id="view-all-btn">View All</button>
+      </div>
+  
+      <!-- Post Actions -->
+      <div class="post-actions d-flex justify-content-between">
+        <button class="btn btn-sm d-flex align-items-center">
+          <i class="fas fa-thumbs-up me-2"></i> Like
+        </button>
+        <button class="btn btn-sm d-flex align-items-center">
+          <i class="fas fa-comment-dots me-2"></i> Comment
+        </button>
+        <button class="btn btn-sm d-flex align-items-center">
+          <i class="fas fa-share me-2"></i> Share
+        </button>
+      </div>
+  
+      <!-- Comments Section -->
+      <div class="comments-section mt-4 px-3">
+        <h5 class="fw-bold mb-3">Comments</h5>
+  
+        <!-- Existing Comments -->
+        <div class="comment mb-3">
+          <strong>John Doe:</strong>
+          <p class="mb-1">Great initiative by ANNFSU! Excited to see the positive impact.</p>
+          <small class="text-muted">Posted on November 15, 2024, 10:30 AM</small>
+        </div>
+        <div class="comment mb-3">
+          <strong>Jane Smith:</strong>
+          <p class="mb-1">This is fantastic! Wishing you all the best!</p>
+          <small class="text-muted">Posted on November 15, 2024, 12:45 PM</small>
+        </div>
+  
+        <!-- Comment Input -->
+        <form id="comment-form">
+          <div class="mb-3">
+            <textarea class="form-control" id="new-comment" rows="3" placeholder="Write your comment here..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-danger btn-sm">Post Comment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Toggle View All Button Functionality
+  const postContent = document.getElementById("post-content");
+  const viewAllBtn = document.getElementById("view-all-btn");
+
+  if (postContent.scrollHeight > postContent.clientHeight) {
+    viewAllBtn.style.display = "block";
+  }
+
+  viewAllBtn.addEventListener("click", () => {
+    postContent.style.maxHeight = "none";
+    postContent.style.display = "block";
+    viewAllBtn.style.display = "none";
+  });
+
+
+    // Handle the comment submission
+    document.getElementById("comment-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    
+    const commentText = document.getElementById("new-comment").value;
+    const commentSection = document.querySelector(".comments-section");
+    
+    // Create a new comment element
+    const newComment = document.createElement("div");
+    newComment.classList.add("comment", "mb-3");
+    newComment.innerHTML = `
+      <strong>You:</strong>
+      <p class="mb-1">${commentText}</p>
+      <small class="text-muted">Just now</small>
+    `;
+
+    // Append the new comment
+    commentSection.insertBefore(newComment, document.getElementById("comment-form"));
+
+    // Clear the input
+    document.getElementById("new-comment").value = "";
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
